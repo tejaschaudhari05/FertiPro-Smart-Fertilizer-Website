@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Company</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 50px;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(90deg, #e8f5e9, #c8e6c9);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            height: 52px;
+            transition: transform 0.3s ease;
+            border-radius: 25px;
+        }
+
+        .logo-link:hover .logo {
+            transform: scale(1.1);
+        }
+
+        .search:focus {
+            border-color: #2e7d32;
+            box-shadow: 0 0 10px rgba(46, 125, 50, 0.3);
+        }
+
+        nav a {
+            margin: 0 14px;
+            text-decoration: none;
+            color: #1b5e20;
+            font-weight: 600;
+            position: relative;
+            padding: 6px 0;
+            transition: color 0.3s ease;
+            font-size: 16px;
+            /* keep same */
+            letter-spacing: 0.3px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: #2e7d32;
+            bottom: -6px;
+            left: 0;
+            border-radius: 5px;
+            transition: width 0.35s ease;
+        }
+
+        nav a:hover {
+            color: #2e7d32;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== SEARCH BOX WRAPPER ===== */
+        .search-box {
+            position: relative;
+            width: 700px;
+            max-width: 100%;
+        }
+
+        /* INPUT (reuse your existing .search) */
+        .search {
+            width: 100%;
+            padding: 12px 54px 12px 20px;
+            /* space for icon */
+            border-radius: 32px;
+            border: 1.5px solid #a5d6a7;
+            outline: none;
+            font-size: 15px;
+            background: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .search::placeholder {
+            color: #6b8f6b;
+        }
+
+        .search:focus {
+            border-color: #2e7d32;
+            box-shadow: 0 0 12px rgba(46, 125, 50, 0.35);
+        }
+
+        /* SEARCH ICON BUTTON */
+        .search-btn {
+            position: absolute;
+            top: 50%;
+            right: 3px;
+            transform: translateY(-50%);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #2e7d32, #66bb6a);
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(46, 125, 50, 0.4);
+            transition: all 0.25s ease;
+        }
+
+        .search-btn:hover {
+            background: linear-gradient(135deg, #1b5e20, #43a047);
+            transform: translateY(-50%) scale(1.08);
+            box-shadow: 0 10px 25px rgba(27, 94, 32, 0.45);
+        }
+
+
+        /* ===== ABOUT HERO VIDEO ===== */
+        .about-hero {
+            height: 420px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* VIDEO */
+        .about-hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* DARK OVERLAY */
+        .about-hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(rgba(22, 77, 22, 0.55),
+                    rgba(22, 77, 22, 0.55));
+            z-index: 2;
+        }
+
+        /* TEXT CONTENT */
+        .about-hero-overlay {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .about-hero-overlay h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .about-hero-overlay p {
+            font-size: 18px;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .about-hero {
+                height: 300px;
+            }
+
+            .about-hero-overlay h1 {
+                font-size: 34px;
+            }
+
+            .about-hero-overlay p {
+                font-size: 16px;
+            }
+        }
+
+
+        /* ===== ABOUT PAGE (DESKTOP ONLY, MERGE-SAFE) ===== */
+
+        .about-section {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 40px;
+            background-color: #f4fbf4;
+            border-radius: 14px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        /* IMAGE / VIDEO + TEXT ROW */
+        .about-row {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        /* VIDEO CONTAINER */
+        .about-image {
+            width: 45%;
+        }
+
+        .about-image video {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+
+        /* TEXT SIDE */
+        .about-content {
+            width: 55%;
+        }
+
+        .about-content h1 {
+            font-size: 36px;
+            color: #0a8a0a;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 6px solid #66bb6a;
+        }
+
+        .about-content p {
+            font-size: 17px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* OTHER SECTIONS */
+        .about-section h2 {
+            font-size: 26px;
+            color: #0a8a0a;
+            margin-top: 35px;
+            margin-bottom: 12px;
+        }
+
+        .about-section h2::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: #66bb6a;
+            margin-top: 8px;
+            border-radius: 3px;
+        }
+
+        .about-section p {
+            font-size: 17px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* STATS SECTION */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            background: #ffffff;
+            padding: 20px 145px;
+            text-align: center;
+        }
+
+        .stat-box {
+            background: #ffffff;
+            padding: 40px 25px;
+            border-radius: 18px;
+            border: 2px solid #2e7d32;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.45s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                    rgba(46, 125, 50, 0.15),
+                    rgba(102, 187, 106, 0.15));
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-12px) scale(1.12);
+            box-shadow: 0 20px 45px rgba(46, 125, 50, 0.063);
+        }
+
+        .stat-box:hover::before {
+            opacity: 1;
+        }
+
+        .stat-box h2 {
+            font-size: 46px;
+            font-weight: 800;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .stat-box p {
+            font-size: 18px;
+            color: #444;
+            font-weight: 600;
+        }
+
+        /* ===== FEEDBACK SECTION ===== */
+        .feedback-section {
+            padding: 30px 40px;
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        /* BIG MAIN WORD */
+        .feedback-tag {
+            font-size: 30px;
+            /* BIG */
+            color: #0a8a0a;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        /* SMALL SUB TITLE */
+        .feedback-title {
+            font-size: 20px;
+            /* SMALL */
+            color: #4a4a4a;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 50px;
+        }
+
+
+        /* GRID */
+        .feedback-grid {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        /* CARD */
+        .feedback-card {
+            background-color: #f9faf7;
+            border: 1.5px solid rgba(0, 0, 0, 0.25);
+            padding: 35px 25px;
+            border-radius: 18px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feedback-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        /* FARMER IMAGE */
+        .feedback-card img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #66bb6a;
+            margin-bottom: 20px;
+        }
+
+        /* QUOTE */
+        .feedback-card .quote {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        /* NAME */
+        .feedback-card h4 {
+            font-size: 18px;
+            color: #1f2b4d;
+            margin-bottom: 5px;
+        }
+
+        /* ROLE */
+        .feedback-card span {
+            font-size: 14px;
+            color: #0a8a0a;
+            font-weight: 600;
+        }
+
+        /*** Footer Start ***/
+        .footer {
+            background: linear-gradient(135deg, #1f3a2e, #2e7d32);
+            color: #eaf7ea;
+            padding: 60px 20px 20px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-item h3,
+        .footer-item h4 {
+            color: #fff;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .footer-item h4::after {
+            content: "";
+            width: 40px;
+            height: 2px;
+            background: #7ed957;
+            display: block;
+            margin-top: 6px;
+        }
+
+        .footer-item p {
+            font-size: 14px;
+            line-height: 26px;
+        }
+
+        .footer-item a {
+            display: block;
+            color: #eaf7ea;
+            font-size: 14px;
+            line-height: 32px;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .footer-item a:hover {
+            color: #9ccc65;
+            transform: translateX(5px);
+        }
+
+        /* Social Icons */
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: 0.4s;
+        }
+
+        .social-links a:hover {
+            background: #66bb6a;
+            color: #1b5e20;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .newsletter input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .newsletter button {
+            padding: 10px 18px;
+            border: none;
+            background: #7ed957;
+            color: #1c2e20;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+            transition: 0.3s;
+        }
+
+        .newsletter button:hover {
+            background: #6ac74b;
+        }
+
+        /* Footer Bottom */
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+            padding-top: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        /*** Footer End ***/
+
+        /* RESPONSIVE (BASIC – YOU CAN EXTEND LATER) */
+        @media (max-width: 992px) {
+            .feedback-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .feedback-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feedback-title {
+                font-size: 28px;
+            }
+        }
+
+        /* CONTACT WIDGET */
+        .contact-widget {
+            position: fixed;
+            right: 20px;
+            bottom: 3%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 9999;
+        }
+
+        /* WHATSAPP ROUND BUTTON */
+        .whatsapp-circle {
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-circle:hover {
+            transform: scale(1.1);
+        }
+
+        /* CALL NOW PILL BUTTON */
+        .call-pill {
+            background: #1e88e5;
+            /* blue like your screenshot */
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .call-pill:hover {
+            transform: scale(1.05);
+        }
+
+        /*navbar*/
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+                padding: 12px 16px;
+                gap: 12px;
+            }
+
+            .search-box {
+                width: 100%;
+                order: 3;
+            }
+
+            nav {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+        }
+
+        /*About Section Stack*/
+        @media (max-width: 900px) {
+            .about-row {
+                flex-direction: column;
+            }
+
+            .about-image,
+            .about-content {
+                width: 100%;
+            }
+        }
+
+        /*stats grid*/
+        @media (max-width: 768px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /*feedback grid*/
+        @media (max-width: 768px) {
+            .feedback-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /*hero text*/
+        @media (max-width: 768px) {
+            .about-hero-overlay h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <a href="index.html" class="logo-link">
+            <img src="images/logo.png" alt="FertiPro Logo" class="logo">
+        </a>
+        <div class="search-box">
+            <input class="search" id="searchInput" type="text" placeholder="Search fertilizers..." autocomplete="off">
+
+            <button class="search-btn" aria-label="Search">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="product.html">Products</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="gallery.html">Gallery</a>
+        </nav>
+    </header>
+    <section class="about-hero">
+
+        <!-- Background Video -->
+        <video autoplay muted loop playsinline class="about-hero-video">
+            <source src="videos/scientist.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Overlay + Text -->
+        <div class="about-hero-overlay">
+            <h1>About FertiPro</h1>
+            <p>The Farmer’s Trusted Growth Partner</p>
+        </div>
+
+    </section>
+
+
+    <div class="about-section">
+
+        <div class="about-row">
+
+            <!-- FARMER VIDEO -->
+            <div class="about-image">
+                <video autoplay muted loop playsinline>
+                    <source src="videos/about.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- ABOUT TEXT -->
+            <div class="about-content">
+                <h1>About Company</h1>
+                <p>
+                    We are an agro-based company committed to providing high-quality crop nutrition
+                    solutions that help farmers improve productivity and crop health. Our products
+                    are developed with a focus on balanced nutrition, sustainable farming, and
+                    long-term soil fertility.
+                </p>
+            </div>
+
+        </div>
+
+        <h2>Our Mission</h2>
+        <p>
+            Our mission is to empower farmers by delivering effective, reliable, and high-quality agricultural products
+            that enhance crop productivity and crop health. We focus on providing practical solutions that support
+            sustainable farming practices, improve soil fertility, and help farmers achieve consistent and profitable
+            yields.
+        </p>
+
+        <h2>Our Vision</h2>
+        <p>
+            Our vision is to become a trusted and recognized leader in the agro industry by continuously innovating and
+            developing advanced crop nutrition solutions. We aim to contribute to agricultural growth and food security
+            by supporting farmers with products that improve long-term farm sustainability and productivity.
+        </p>
+
+        <h2>Our Values</h2>
+        <p>
+            We believe in putting farmers at the center of everything we do. Quality, integrity, and responsibility
+            guide our actions as we work toward building long-lasting trust with farmers and partners. We are committed
+            to promoting sustainable agriculture while delivering products that ensure safety, reliability, and
+            consistent performance.
+        </p>
+
+    </div>
+    <!-- STATS (details)-->
+    <section class="stats">
+        <div class="stat-box">
+            <h2>10K+</h2><span>Happy Farmers</span>
+        </div>
+        <div class="stat-box">
+            <h2>50K+</h2><span>Acres Covered</span>
+        </div>
+        <div class="stat-box">
+            <h2>120+</h2><span>Products</span>
+        </div>
+        <div class="stat-box">
+            <h2>98%</h2><span>Satisfaction</span>
+        </div>
+    </section>
+
+    <section class="feedback-section">
+
+        <h1 class="feedback-tag">FEEDBACK</h1>
+        <h2 class="feedback-title">Farmers Say About Our Products</h2>
+
+        <div class="feedback-grid">
+
+            <!-- Farmer 1 -->
+            <div class="feedback-card">
+                <img src="images/farmer1.jpg" alt="Farmer">
+                <p class="quote">
+                    “The product quality is excellent. My crop health has improved
+                    and yield is much better than before.”
+                </p>
+                <h4>Ramesh Patil</h4>
+                <span>Progressive Farmer</span>
+            </div>
+
+            <!-- Farmer 2 -->
+            <div class="feedback-card">
+                <img src="images/farmer2.jpg" alt="Farmer">
+                <p class="quote">
+                    “Very effective nutrition solutions. Easy to use and results
+                    are clearly visible in my farm.”
+                </p>
+                <h4>Tatyasaheb Patil</h4>
+                <span>Vegetable Grower</span>
+            </div>
+
+            <!-- Farmer 3 -->
+            <div class="feedback-card">
+                <img src="images/farmer3.jpg" alt="Farmer">
+                <p class="quote">
+                    “I trust these products for all my crops. Consistent quality
+                    and good guidance.”
+                </p>
+                <h4>Mahesh Deshmukh</h4>
+                <span>Organic Farmer</span>
+            </div>
+
+            <!-- Farmer 4 -->
+            <div class="feedback-card">
+                <img src="images/farmer4.jpg" alt="Farmer">
+                <p class="quote">
+                    “Affordable and reliable. My soil fertility and crop growth
+                    have improved a lot. Very nice products.”
+                </p>
+                <h4>Pradip Pawar</h4>
+                <span>Field Crop Farmer</span>
+            </div>
+
+        </div>
+
+    </section>
+    <!--Footer-->
+    <footer class="footer">
+        <div class="footer-container">
+
+            <!-- Company Info -->
+            <div class="footer-item">
+                <h3>FertiPro</h3>
+                <p>
+                    FertiPro is committed to empowering farmers with high-quality fertilizers and sustainable agricultural solutions.
+                </p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-item">
+                <h4>Quick Links</h4>
+                <a href="#">Home</a>
+                <a href="#">Products</a>
+                <a href="#">Gallery</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <!-- Services -->
+            <div class="footer-item">
+                <h4>Our Services</h4>
+                <a href="#">Organic Fertilizers</a>
+                <a href="#">Soil Testing</a>
+                <a href="#">Crop Guidance</a>
+                <a href="#">Agro Consultancy</a>
+                <a href="#">Bulk Supply</a>
+            </div>
+
+            <!-- Contact -->
+            <div class="footer-item">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Reg. Address :Tare compound, near Dahisar chek
+                    naka, Dahisar, (East) Mumbai- 400 068 (MH) India.</p>
+                <p><i class="fas fa-phone"></i> +91 8432304161</p>
+                <p><i class="fas fa-envelope"></i> tejaschaudhari0505@gmail.com</p>
+                <p><i class="fas fa-phone"></i> Website: www.FertiPro.com</p>
+
+            </div>
+
+            <!-- Newsletter -->
+            <div class="footer-item">
+                <h4>Newsletter</h4>
+                <p>Get farming tips & updates directly in your inbox.</p>
+                <form class="newsletter">
+                    <input type="email" placeholder="Your Email">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <p>© 2026 FertiPro. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp & Call Buttons -->
+    <div class="contact-widget">
+
+        <!-- WhatsApp Circle -->
+        <a href="https://wa.me/918432304161" class="whatsapp-circle" target="_blank" aria-label="Chat on WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+
+        <!-- Call Button -->
+        <a href="tel:918432304161" class="call-pill"
+            onclick="if(!/Mobi|Android/i.test(navigator.userAgent)){alert('Please call us from your mobile: +91 84323 04161'); return false;}">
+            Call Now
+        </a>
+
+
+    </div>
+
+    <script>
+        const searchInput = document.querySelector(".search");
+        const searchBtn = document.querySelector(".search-btn");
+
+    const productMap = {
+  phytogro: "product.html#phytogro",
+  terrazyme: "product.html#terrazyme",
+  aquacal: "product.html#aquacal",
+  bloomplus: "product.html#bloomplus",
+  nitroboost: "product.html#nitroboost",
+  microfuse: "product.html#microfuse",
+  bioshield: "product.html#bioshield"
+};
+
+        function handleSearch() {
+            const value = searchInput.value.toLowerCase().trim();
+
+            // 🚫 BLOCK EMPTY SEARCH
+            if (!value) {
+                alert("Please enter a product name");
+                return;
+            }
+
+            // ✅ MATCH LOGIC
+            for (let key in productMap) {
+                if (key.includes(value) || value.includes(key)) {
+                    window.location.href = productMap[key];
+                    return;
+                }
+            }
+
+            alert("Product not found. Please try again.");
+        }
+
+        // ENTER KEY
+        searchInput.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                handleSearch();
+            }
+        });
+
+        // SEARCH ICON CLICK
+        searchBtn.addEventListener("click", handleSearch);
+    </script>
+
+
+
+</body>
+
+</html>
