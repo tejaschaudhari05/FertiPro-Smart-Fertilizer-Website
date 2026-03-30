@@ -68,7 +68,7 @@ This version is created purely to demonstrate frontend development skills and pr
 ![img](images/product.png)
 ![img](images/contact.png)
 ![img](images/map.png)
-![img](images/footer.png.png)
+![img](images/footer.png)
 
 ## 🌍 Live Demo
 
