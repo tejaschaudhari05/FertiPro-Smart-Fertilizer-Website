@@ -22,9 +22,9 @@ FertiPro is a modern and responsive agricultural website designed to showcase fe
 
 ## 🛠️ Tech Stack
 
-- HTML5  
-- CSS3 (Flexbox, Grid, Responsive Design)  
-- JavaScript  
+- HTML5
+- CSS3 (Internal Styling)
+- JavaScript (Vanilla JS)  
 
 ---
 
